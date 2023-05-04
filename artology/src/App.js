@@ -1,5 +1,5 @@
 import "./App.css";
-import { useState, useEffect } from "react";
+import { useEffect, useReducer } from "react";
 import React from "react";
 import Navbar from "./components/Navbar/Navbar";
 import RandomItem from "./components/RandomItem/index";
@@ -12,84 +12,76 @@ import FrontImage from "./components/FrontImage/FrontImage";
 import RandomQuestion from "./components/RandomQuestion";
 import Meditation from "./components/Meditation/Meditation";
 
+// Define actions that will be dispatched to the reducer
+const ACTION = {
+  SET_ITEM_1: "change_mood",
+  SET_ITEM_2: "change_movie",
+  SET_ITEM_3: "change_place",
+  CHANGE_QUESTION: "change_question"
+}
+
+// Define the initial state using an object
+const initialState = {
+  item1: {},
+  item2: {},
+  item3: {},
+  question: {},
+};
+
+// Define a reducer function that will update the app's state based on actions dispatched to it
+function reducer(state, action) {
+  switch (action.type) {
+    case ACTION.SET_ITEM_1:
+      return { ...state, item1: action.payload };
+    case ACTION.SET_ITEM_2:
+      return { ...state, item2: action.payload };
+    case ACTION.SET_ITEM_3:
+      return { ...state, item3: action.payload };
+    case ACTION.CHANGE_QUESTION:
+      return { ...state, question: action.payload };
+    default:
+      return state;
+  }
+}
+
 function App() {
-  const [item1, setItem1] = useState({});
-  const [item2, setItem2] = useState({});
-  const [item3, setItem3] = useState({});
-  const [question, setQuestion] = useState({});
 
-  let previousItem1 = null;
-  let previousItem2 = null;
-  let previousItem3 = null;
-  let previousQuestion = null;
+  // Set up the app's state and reducer function using the useReducer hook
+  const [state, dispatch] = useReducer(reducer, initialState);
 
-  function getRandomItem1(array) {
-    let randomNumber = Math.floor(Math.random() * array.length);
-    let randomItem = array[randomNumber];
-    // we want to check that the item is not the same as the previous item
-    while (randomItem === previousItem1) {
-      randomNumber = Math.floor(Math.random() * array.length);
+  // Create a function that takes in: 
+  // an array of items, an action to dispatch, and a previously selected item
+  // and dispatches a new random item
+  function getRandomItem(array, setItemAction, previousItem) {
+    let randomItem = previousItem;
+    while (randomItem === previousItem) {
+      const randomNumber = Math.floor(Math.random() * array.length);
       randomItem = array[randomNumber];
     }
-    // then we set the previous item to the current item
-    previousItem1 = randomItem;
-    setItem1(randomItem);
-    console.log("item1");
-    return randomItem;
+    dispatch({ type: setItemAction, payload: randomItem });
   }
 
-  function getRandomItem2(array) {
-    let randomNumber = Math.floor(Math.random() * array.length);
-    let randomItem = array[randomNumber];
-    // we want to check that the item is not the same as the previous item
-    while (randomItem === previousItem2) {
-      randomNumber = Math.floor(Math.random() * array.length);
-      randomItem = array[randomNumber];
-    }
-    // then we set the previous item to the current item
-    previousItem2 = randomItem;
-    setItem2(randomItem);
-    console.log("item2");
-    return randomItem;
-  }
-
-  function getRandomItem3(array) {
-    let randomNumber = Math.floor(Math.random() * array.length);
-    let randomItem = array[randomNumber];
-    // we want to check that the item is not the same as the previous item
-    while (randomItem === previousItem3) {
-      randomNumber = Math.floor(Math.random() * array.length);
-      randomItem = array[randomNumber];
-    }
-    // then we set the previous item to the current item
-    previousItem3 = randomItem;
-    setItem3(randomItem);
-    console.log("item3");
-    return randomItem;
-  }
-
+  // Create a function that takes an array of questions 
+  // and dispatches a new random question
   function getRandomQuestion(array) {
-    let randomNumber = Math.floor(Math.random() * array.length);
-    let randomQuestion = array[randomNumber];
-    // we want to check that the question is not the same as the previous
-    while (randomQuestion === previousQuestion) {
-      randomNumber = Math.floor(Math.random() * array.length);
+    const prevQuestion = state.question;
+    let randomQuestion = prevQuestion;
+    while (randomQuestion === prevQuestion) {
+      const randomNumber = Math.floor(Math.random() * array.length);
       randomQuestion = array[randomNumber];
     }
-    // then we set the previous question to the current question
-    previousQuestion = randomQuestion;
-    setQuestion(randomQuestion);
-    console.log("question");
-    return randomQuestion;
+    dispatch({ type: ACTION.CHANGE_QUESTION, payload: randomQuestion });
   }
 
+  // Use the useEffect hook to run the actions on mounts
   useEffect(() => {
-    getRandomItem1(adjectives);
-    getRandomItem2(movies);
-    getRandomItem3(places);
+    getRandomItem(adjectives, ACTION.SET_ITEM_1);
+    getRandomItem(movies, ACTION.SET_ITEM_2);
+    getRandomItem(places, ACTION.SET_ITEM_3);
     getRandomQuestion(questions);
   }, []);
 
+  // Return the JSX for the app component
   return (
     <div data-testid="app-component" className="App">
       <header id="top-of-page" className="App-header">
@@ -97,8 +89,8 @@ function App() {
         <Arrow />
       </header>
       <main>
-        <div ClassName="frontpage-container">
-          <FrontImage src={FrontImage} />
+        <div className="frontpage-container">
+          <FrontImage />
         </div>
         <section
           id="artist-studio"
@@ -106,23 +98,22 @@ function App() {
           className="artist-studio"
         >
           <div className="question-container">
-            <RandomQuestion
-              question={question}
+            <RandomQuestion question={state.question} 
               getRandomQuestion={() => getRandomQuestion(questions)}
             />
           </div>
-          <div dataclassName="item-container" className="item-container">
+          <div className="item-container">
             <RandomItem
-              item={item1}
-              getRandomItem={() => getRandomItem1(adjectives)}
+              item={state.item1}
+              getRandomItem={() => getRandomItem(adjectives, ACTION.SET_ITEM_1)}
             />
             <RandomItem
-              item={item2}
-              getRandomItem={() => getRandomItem2(movies)}
+              item={state.item2}
+              getRandomItem={() => getRandomItem(movies, ACTION.SET_ITEM_2)}
             />
             <RandomItem
-              item={item3}
-              getRandomItem={() => getRandomItem3(places)}
+              item={state.item3}
+              getRandomItem={() => getRandomItem(places, ACTION.SET_ITEM_3)}
             />
           </div>
         </section>

@@ -65,7 +65,7 @@ export let movies = [
   },
   {
     id: 11,
-    name: "Laland",
+    name: "Lalaland",
     image: movie11,
   },
   {
