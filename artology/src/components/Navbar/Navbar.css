@@ -1,0 +1,71 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap');
+
+
+.nav-bar {
+  /* margin-left: 150px; */
+  /* margin: 0px 200px; */
+  margin: 0px 0px;
+  padding-top: 100px; 
+  padding-bottom: 30px;
+  /* padding-left: 50px;
+  padding-right: 50px; */
+  background-color: var(--white);
+  color: var(--black);
+  font-family: var(--font1);
+  font-size: 25px; 
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 100;
+}
+
+.nav-container {
+  max-width: 70%;
+  margin: 0 auto; /* center horizontally */
+  display: flex; /* set display property to flex */
+  align-items: center;
+  justify-content: center;
+}
+
+.nav-bar li:nth-of-type(3) {
+  color: var(--blue);
+}
+
+.nav-bar ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  justify-content: space-between;
+  align-items:flex-end;
+}
+
+.nav-bar li {
+  margin: 0 10px;
+}
+
+.nav-link {
+  display: block;
+  color: (var(--white));
+  text-decoration: none;
+  padding: 10px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+
+.nav-bar li:hover {
+  color:var(--pink);
+  text-decoration: underline;
+}
+
+.logo-img {
+  width: 260px;
+  height: 46px;
+  transition: all 0.2s ease-in-out; /* add transition for smooth animation */
+}
+
+.logo-img:hover {
+  width: 280px;
+  height: 52px;
+}

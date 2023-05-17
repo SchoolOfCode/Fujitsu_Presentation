@@ -1,0 +1,30 @@
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap');
+
+
+
+.random-question-section {
+    font-family: var(--font1);
+    font-size: 13px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 0 50px 0;
+    background-color: var(--white)
+  }
+
+  button[name="get-new-challenge-button"]:hover {
+    background-color: var(--pink);
+    color: var(--white);
+  }
+
+  h2{
+    margin: 20px;
+  }
+
+ .title {
+  color: var(--pink);
+ }

@@ -1,0 +1,138 @@
+
+@import url('https://fonts.googleapis.com/css2?family=Chivo+Mono:wght@200&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;400;500;600&display=swap');
+
+
+
+h2 {
+  font-family: var(--font2);
+  font-size: 20px;
+}
+
+
+
+#meditation-section {
+  position: relative;
+  background-image: url('./wave.gif');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center center;
+  padding-bottom: 50px;
+}
+
+#meditation-section h2,
+#meditation-section h3,
+#meditation-section button {
+  position: relative;
+  z-index: 2;
+}
+
+.music-container {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, auto);
+  grid-gap: 10px;
+}
+
+.img-row {
+  grid-column: 1 / span 2;
+  display: flex;
+  justify-content: center;
+  gap: 15px;
+}
+
+.music-record {
+  width: 250px;
+  height: 215px;
+  margin-top: 30px;
+  margin-left: 30px;
+}
+
+.voice-record {
+  width: 290px;
+  height: auto;
+  margin-left: 20px;
+}
+
+.button-row {
+  grid-column: 1 / span 2;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+}
+
+.music-button, .breath-button {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.music-button button {
+
+  width: 70%;
+  margin-bottom: 10px;
+  margin: 0px 60px;
+}
+
+.music-button button:hover {
+  background-color: var(--lightblue); /* Change the color to your desired hover color */
+}
+
+
+.breath-button button:hover {
+  background-color: var(--lightblue); /* Change the color to your desired hover color */
+}
+
+
+.breath-button button:hover {
+  background-color: var(--lightblue); /* Change the color to your desired hover color */
+}
+
+.transcript-div button:hover {
+  background-color: var(--lightblue); /* Change the color to your desired hover color */
+}
+
+.breath-button button {
+  width: 60%;
+  margin-bottom: 10px;
+  margin: 0px 60px;
+}
+
+.music-button input {
+  width: 100%;
+  margin-top: 10px;
+}
+
+.breath-button input {
+  width: 90%;
+  margin-top: 10px;
+}
+
+
+input[type='range'] {
+  overflow: hidden;
+  width: 100px;
+  -webkit-appearance: none;
+  background-color: black;
+  border-radius: 10px;
+}
+
+.transcript-div {
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.transcript-container {
+  margin: 20px 300px;
+  background-color: rgba(15, 14, 14, 0.8); /* set alpha value to 0.5 for 50% transparency */
+  color: var(--white);
+  padding: 50px 150px;
+  font-family: var(--font2);
+  border-radius: 60px;
+  text-align: justify;
+}
+
+.meditation-title {
+  color: var(--pink);
+}
